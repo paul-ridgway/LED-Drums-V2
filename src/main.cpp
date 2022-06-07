@@ -29,12 +29,6 @@ void handleMidi()
     if (val & 0x80)
     {
       auto cmdStart = val & 0xF0;
-      // auto channel = val & 0x0F;
-      if (cmdStart == 0xF0)
-      {
-        // Non-musical command (ignore)
-        continue;
-      }
       if (cmdStart == 0x90)
       {
         auto note = Serial2.read();
@@ -52,13 +46,6 @@ void handleMidi()
         }
         break;
       }
-      // else if (cmdStart == 0x80)
-      // {
-      //   Serial.print("NoteOff: ");
-      //   Serial.print(Serial2.read());
-      //   Serial.print(" - ");
-      //   Serial.println(Serial2.read());
-      // }
     }
   }
   Serial.flush();
@@ -77,10 +64,10 @@ void loop()
     const int r = activeTrigger->r();
     const int g = activeTrigger->g();
     const int b = activeTrigger->b();
-    const byte *leds = t->leds();
-    for (byte i = 0; i < t->ledCount(); ++i)
+    const Array<uint16_t, LEDS> *leds = t->leds();
+    for (uint16_t i = 0; i < t->ledCount(); ++i)
     {
-      const byte j = leds[i];
+      const uint16_t j = leds->at(i);
       color_r[j] = clamp((r + color_r[j]), 0, 255);
       color_g[j] = clamp((g + color_g[j]), 0, 255);
       color_b[j] = clamp((b + color_b[j]), 0, 255);

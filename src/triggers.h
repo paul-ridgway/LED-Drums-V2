@@ -10,11 +10,11 @@ int idleCount = 0;
 long lastNoteAt = -IDLE_TIME;
 long lastIdleAt = -IDLE_TIME;
 
-const Array<byte, LEDS> range(const byte start, const byte end, const byte step) {
-  Array<byte, LEDS> result;
-  byte value = start;
+Array<uint16_t, LEDS>* range(const uint16_t start, const uint16_t end, const uint16_t step) {
+  Array<uint16_t, LEDS>* result = new Array<uint16_t, LEDS>();
+  uint16_t value = start;
   while (value <= end) {
-    result.push_back(value);
+    result->push_back(value);
     value += step;
   }
   return result;
@@ -43,14 +43,14 @@ void handleNote(const byte note, const float force) {
   }
 }
 
-void addTrigger(const byte note, const Array<byte, LEDS> leds, const float r, const float g, const float b, const int d) {
+void addTrigger(const byte note, const Array<uint16_t, LEDS> *leds, const float r, const float g, const float b, const uint16_t d) {
   Serial.print("Add trigger: ");
   Serial.println(note);
   
   if (!triggers[note]) {
     triggers[note] = new Array<Trigger*, 60>();
   }
-  triggers[note]->push_back(new Trigger(leds.data(), r, g, b, d));
+  triggers[note]->push_back(new Trigger(leds, r, g, b, d));
   Serial.println(triggers[note]->size());
 }
 
@@ -66,8 +66,8 @@ const int clamp(const int value, const int min, const int max) {
 
 void setupTriggers()
 {
-  byte snareLeds[] = {129, 132, 54, 57, 14, 97};
-  Array<byte, LEDS> snare(snareLeds);
+  uint16_t snareLeds[] = {129, 132, 54, 57, 14, 97};
+  Array<uint16_t, LEDS>* snare = new Array<uint16_t, LEDS>(snareLeds);
 
   // Configure mapping
   addTrigger(BASS, range(58, 128, 2), 0.1, 0.1, 0.1, SHORT);
@@ -83,10 +83,10 @@ void setupTriggers()
   addTrigger(SNARE_RIM2, range(1, 58, 2), 0.1, 0.0, 0.0, 0.4);
   addTrigger(SNARE_RIM2, range(128, LEDS, 2), 0.1, 0.0, 0.0, 0.4);
 
-  Array<byte, LEDS> hi_hat_round = range(1, 58, 2);
-  const Array<byte, LEDS> two = range(128, LEDS, 2);
-  for (unsigned int i = 0; i < two.size(); ++i) {
-    hi_hat_round.push_back(two[i]);
+  Array<uint16_t, LEDS>* hi_hat_round = range(1, 58, 2);
+  const Array<uint16_t, LEDS>* two = range(128, LEDS, 2);
+  for (unsigned int i = 0; i < two->size(); ++i) {
+    hi_hat_round->push_back(two->at(i));
   }
   addTrigger(HIHAT_RIM, range(132, 143, 1), 0.0, 1.0, 0.5, LONG);
   addTrigger(HIHAT_TOP, range(132, 143, 1), 0.0, 0.5, 1.0, LONG);

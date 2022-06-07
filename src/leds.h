@@ -3,7 +3,7 @@
 #include <Adafruit_NeoPixel.h>
 
 #define PIN 4
-#define LEDS 149
+#define LEDS 300
 
 Adafruit_NeoPixel leds = Adafruit_NeoPixel(LEDS, PIN, NEO_GRB + NEO_KHZ800);
 
@@ -75,6 +75,6 @@ void introSetv2()
   delay(100);
   allSet(128, 128, 128);
   writeOut();
-  delay(1000);
+  delay(100);
   reset();
 }

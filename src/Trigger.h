@@ -4,16 +4,13 @@
 class Trigger {
   public:
     //TODO: Store in array not vector
-    Trigger(const byte* leds, const float r, const float g, const float b, const int decay) : 
+    Trigger(const Array<uint16_t, LEDS> *leds, const float r, const float g, const float b, const uint16_t decay) : 
     r_(r),
     g_(g),
     b_(b),
+    leds_(leds),
+    ledCount_(leds->size()),
     decay_(decay) {
-      ledCount_ = sizeof(leds) / sizeof(leds[0]);
-      leds_ = (byte*)malloc(ledCount_);
-      for(unsigned int i = 0; i < ledCount_; ++i) {
-        leds_[i] = leds[0];
-      }
     }
 
     const float r() const {
@@ -25,18 +22,18 @@ class Trigger {
     const float b() const {
       return b_;
     }
-    const int decay() const {
+    const uint16_t decay() const {
       return decay_;
     }
-    const byte* leds() const {
+    const Array<uint16_t, LEDS>* leds() const {
       return leds_;
     }
-    const int ledCount() const {
+    const uint16_t ledCount() const {
       return ledCount_;
     }
   private:
     const float r_, g_, b_;
-    const int decay_;
-    byte* leds_;
-    int ledCount_;
+    const Array<uint16_t, LEDS>* leds_;
+    const uint16_t ledCount_;
+    const uint16_t decay_;
 };
