@@ -75,6 +75,6 @@ void introSetv2()
   delay(100);
   allSet(128, 128, 128);
   writeOut();
-  delay(100);
+  delay(1000);
   reset();
 }

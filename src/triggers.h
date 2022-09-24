@@ -66,76 +66,73 @@ const int clamp(const int value, const int min, const int max) {
 
 void setupTriggers()
 {
-  uint16_t snareLeds[] = {129, 132, 54, 57, 14, 97};
+  uint16_t snareLeds[] = {0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275 };
   Array<uint16_t, LEDS>* snare = new Array<uint16_t, LEDS>(snareLeds);
 
   // Configure mapping
-  addTrigger(BASS, range(58, 128, 2), 0.1, 0.1, 0.1, SHORT);
-  addTrigger(BASS, range(87, 109,  1), 0.0, 1.0, 1.0, MEDIUM);
+  addTrigger(BASS, range(30, 80, 2), 0.1, 0.1, 0.1, SHORT);
+  addTrigger(BASS, range(185, 245, 1), 0.0, 1.0, 1.0, MEDIUM);
 
   addTrigger(SNARE, snare, 1.0, 1.0, 1.0, SHORT);
-  addTrigger(SNARE, range(1, 58, 2), 0.1, 0.0, 0.0, 0.4);
-  addTrigger(SNARE, range(128, LEDS, 2), 0.1, 0.0, 0.0, 0.4);
+  addTrigger(SNARE, range(1, LEDS, 4), 0.1, 0.0, 0.0, 0.4);
   addTrigger(SNARE_RIM, snare, 1.0, 1.0, 0.0, SHORT);
   addTrigger(SNARE_RIM2, snare, 1.0, 0.0, 1.0, SHORT);
-  addTrigger(SNARE_RIM, range(1, 58, 2), 0.1, 0.0, 0.0, 0.4);
-  addTrigger(SNARE_RIM, range(128, LEDS, 2), 0.1, 0.0, 0.0, 0.4);
-  addTrigger(SNARE_RIM2, range(1, 58, 2), 0.1, 0.0, 0.0, 0.4);
-  addTrigger(SNARE_RIM2, range(128, LEDS, 2), 0.1, 0.0, 0.0, 0.4);
+  addTrigger(SNARE_RIM, range(1, LEDS, 4), 0.1, 0.0, 0.0, 0.4);
+  addTrigger(SNARE_RIM2, range(1, LEDS, 4), 0.1, 0.0, 0.0, 0.4);
 
-  Array<uint16_t, LEDS>* hi_hat_round = range(1, 58, 2);
-  const Array<uint16_t, LEDS>* two = range(128, LEDS, 2);
+  Array<uint16_t, LEDS>* hi_hat_round = range(0, 20, 2);
+  const Array<uint16_t, LEDS>* two = range(290, LEDS, 2);
   for (unsigned int i = 0; i < two->size(); ++i) {
     hi_hat_round->push_back(two->at(i));
   }
-  addTrigger(HIHAT_RIM, range(132, 143, 1), 0.0, 1.0, 0.5, LONG);
-  addTrigger(HIHAT_TOP, range(132, 143, 1), 0.0, 0.5, 1.0, LONG);
-  addTrigger(HIHAT_PEDAL, range(132, 143, 1), 0.0, 1.0, 1.0, LONG);
-  addTrigger(HIHAT_RIM_CLOSED, range(132, 143, 1), 1.0, 0.5, 0.75, LONG);
-  addTrigger(HIHAT_TOP_CLOSED, range(132, 143, 1), 0.5, 1.0, 0.75, LONG);
+  addTrigger(HIHAT_RIM, range(240, 290, 1), 0.0, 1.0, 0.5, LONG);
+  addTrigger(HIHAT_TOP, range(240, 290, 1), 0.0, 0.5, 1.0, LONG);
+  addTrigger(HIHAT_PEDAL, range(240, 290, 1), 0.0, 1.0, 1.0, LONG);
+  addTrigger(HIHAT_RIM_CLOSED, range(240, 290, 1), 1.0, 0.5, 0.75, LONG);
+  addTrigger(HIHAT_TOP_CLOSED, range(240, 290, 1), 0.5, 1.0, 0.75, LONG);
   addTrigger(HIHAT_RIM, hi_hat_round, 0.0, 0.1, 0.0, LONG);
   addTrigger(HIHAT_TOP, hi_hat_round, 0.0, 0.1, 0.0, LONG);
   addTrigger(HIHAT_PEDAL, hi_hat_round, 0.0, 0.1, 0.0, LONG);
   addTrigger(HIHAT_RIM_CLOSED, hi_hat_round, 0.0, 0.1, 0.0, LONG);
   addTrigger(HIHAT_TOP_CLOSED, hi_hat_round, 0.0, 0.1, 0.0, LONG);
-  addTrigger(HIHAT_RIM, range(115, 131, 2), 0.0, 1.0, 0.0, MEDIUM);
-  addTrigger(HIHAT_TOP, range(115, 131, 2), 0.0, 1.0, 0.0, MEDIUM);
-  addTrigger(HIHAT_PEDAL, range(115, 131, 2), 0.0, 1.0, 0.0, MEDIUM);
-  addTrigger(HIHAT_RIM_CLOSED, range(115, 131, 2), 0.0, 1.0, 0.0, MEDIUM);
-  addTrigger(HIHAT_TOP_CLOSED, range(115, 131, 2), 0.0, 1.0, 0.0, MEDIUM);
+  addTrigger(HIHAT_RIM, range(141, 290, 5), 0.0, 1.0, 0.0, MEDIUM);
+  addTrigger(HIHAT_TOP, range(141, 290, 5), 0.0, 1.0, 0.0, MEDIUM);
+  addTrigger(HIHAT_PEDAL, range(141, 290, 5), 0.0, 1.0, 0.0, MEDIUM);
+  addTrigger(HIHAT_RIM_CLOSED, range(141, 290, 5), 0.0, 1.0, 0.0, MEDIUM);
+  addTrigger(HIHAT_TOP_CLOSED, range(141, 290, 5), 0.0, 1.0, 0.0, MEDIUM);
 
-  addTrigger(CRASH_TOP, range(0, 3, 1), 0.5, 1.0, 0.0, LONG);
-  addTrigger(CRASH_TOP, range(143, LEDS, 1), 0.5, 1.0, 0.0, LONG);
-  addTrigger(CRASH_RIM, range(0, 3, 1), 1.0, 0.5, 0.0, LONG);
-  addTrigger(CRASH_RIM, range(143, LEDS, 1), 1.0, 0.5, 0.0, LONG);
-  addTrigger(CRASH_TOP, range(107, 122, 2) , 1.0, 0.0, 0.0, MEDIUM);
-  addTrigger(CRASH_RIM, range(107, 122, 2) , 1.0, 0.0, 0.0, MEDIUM);
+  addTrigger(CRASH_TOP, range(10, 35, 1), 0.5, 1.0, 0.0, LONG);
+  addTrigger(CRASH_TOP, range(240, 285, 1), 0.5, 1.0, 0.0, LONG);
+  addTrigger(CRASH_RIM, range(10, 35, 1), 1.0, 0.5, 0.0, LONG);
+  addTrigger(CRASH_RIM, range(240, 285, 1), 1.0, 0.5, 0.0, LONG);
+  addTrigger(CRASH_TOP, range(145, 240, 3) , 1.0, 0.0, 0.0, MEDIUM);
+  addTrigger(CRASH_RIM, range(145, 250, 3) , 1.0, 0.0, 0.0, MEDIUM);
 
 
-  addTrigger(TOM1, range(1, 15, 1), 0.0, 1.0, 0.0, LONG);
-  addTrigger(TOM1_RIM, range(1, 15, 1), 1.0, 0.0, 1.0, LONG);
-  addTrigger(TOM2, range(12, 27, 1), 0.0, 0.0, 1.0, LONG);
-  addTrigger(TOM2_RIM, range(12, 27, 1), 1.0, 1.0, 0.0, LONG);
+  addTrigger(TOM1, range(25, 55, 1), 0.0, 1.0, 0.0, LONG);
+  addTrigger(TOM1_RIM, range(25, 55, 1), 1.0, 0.0, 1.0, LONG);
+  addTrigger(TOM2, range(45, 80, 1), 0.0, 0.0, 1.0, LONG);
+  addTrigger(TOM2_RIM, range(45, 80, 1), 1.0, 1.0, 0.0, LONG);
 
-  addTrigger(RIDE_TOP, range(22, 35, 1), 0.0, 0.3, 1.0, LONG);
-  addTrigger(RIDE_BELL, range(22, 35, 1), 1.0, 0.3, 0.0, LONG);
-  addTrigger(RIDE_RIM, range(22, 35, 1), 0.3, 1.0, 0.0, LONG);
+  addTrigger(RIDE_TOP, range(60, 84, 1), 0.0, 0.3, 1.0, LONG);
+  addTrigger(RIDE_BELL, range(60, 84, 1), 1.0, 0.3, 0.0, LONG);
+  addTrigger(RIDE_RIM, range(60, 84, 1), 0.3, 1.0, 0.0, LONG);
 
-  addTrigger(RIDE_TOP, range(71, 91, 2), 0.0, 0.0, 1.0, MEDIUM);
-  addTrigger(RIDE_BELL, range(71, 91, 2), 0.0, 0.0, 1.0, MEDIUM);
-  addTrigger(RIDE_RIM, range(71, 91, 2), 0.0, 0.0, 1.0, MEDIUM);
+  addTrigger(RIDE_TOP, range(181, 205, 2), 0.0, 0.0, 1.0, MEDIUM);
+  addTrigger(RIDE_BELL, range(181, 205, 2), 0.0, 0.0, 1.0, MEDIUM);
+  addTrigger(RIDE_RIM, range(181, 205, 2), 0.0, 0.0, 1.0, MEDIUM);
 
-  addTrigger(TOM3, range(27, 45, 1), 1.0, 0.0, 1.0, LONG);
-  addTrigger(TOM3_RIM, range(27, 45, 1), 0.0, 1.0, 0.0, LONG);
+  addTrigger(TOM3, range(75, 112, 1), 1.0, 0.0, 1.0, LONG);
+  addTrigger(TOM3_RIM, range(75, 112, 1), 0.0, 1.0, 0.0, LONG);
 
-  addTrigger(SPLASH_TOP, range(43, 46, 1), 1.0, 0.5, 0.0, LONG);
-  addTrigger(SPLASH_RIM, range(43, 46, 1), 0.5, 1.0, 0.0, LONG);
+  addTrigger(SPLASH_TOP, range(90, 140, 1), 1.0, 0.5, 0.0, LONG);
+  addTrigger(SPLASH_RIM, range(90, 140, 1), 0.5, 1.0, 0.0, LONG);
 
-  addTrigger(SPLASH_TOP, range(57, 73, 2), 0.0, 1.0, 0.0, MEDIUM);
-  addTrigger(SPLASH_RIM, range(57, 73, 2), 0.0, 1.0, 0.0, MEDIUM);
+  addTrigger(SPLASH_TOP, range(141, 173, 2), 0.0, 1.0, 0.0, MEDIUM);
+  addTrigger(SPLASH_RIM, range(141, 173, 2), 0.0, 1.0, 0.0, MEDIUM);
 
-  addTrigger(TOM4, range(45, 67, 1), 0.0, 1.0, 1.0, LONG);
-  addTrigger(TOM4_RIM, range(45, 67, 1), 1.0, 0.0, 0.0, LONG);
+  addTrigger(TOM4, range(102, 135, 1), 0.0, 1.0, 1.0, LONG);
+  addTrigger(TOM4_RIM, range(102, 135, 1), 1.0, 0.0, 0.0, LONG);
 
 }
 
