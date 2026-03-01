@@ -112,6 +112,8 @@ void setupTriggers()
 
   addTrigger(TOM1, range(25, 55, 1), 0.0, 1.0, 0.0, LONG);
   addTrigger(TOM1_RIM, range(25, 55, 1), 1.0, 0.0, 1.0, LONG);
+  addTrigger(CHINA_TOP, range(18, 65, 2), 1.0, 0.5, 0.25, LONG);
+  addTrigger(CHINA_RIM, range(18, 65, 2), 0.25, 1.0, 0.5, LONG);
   addTrigger(TOM2, range(45, 80, 1), 0.0, 0.0, 1.0, LONG);
   addTrigger(TOM2_RIM, range(45, 80, 1), 1.0, 1.0, 0.0, LONG);
 

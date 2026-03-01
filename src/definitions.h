@@ -21,6 +21,8 @@
 #define SNARE_RIM2 40
 #define TOM1 48
 #define TOM1_RIM 50
+#define CHINA_TOP 29
+#define CHINA_RIM 30
 #define TOM2 45
 #define TOM2_RIM 47
 #define TOM3 43
