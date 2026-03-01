@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include <MIDI.h>
 #include "definitions.h"
+#include "log.h"
 #include "triggers.h"
 #include "leds.h"
 
@@ -10,8 +11,8 @@ TaskHandle_t renderTask;
 
 void renderLoop(void *parameter)
 {
-  Serial.print("renderLoop running on core ");
-  Serial.println(xPortGetCoreID());
+  LOG_PRINT("renderLoop running on core ");
+  LOG_PRINTLN(xPortGetCoreID());
 
   allSet(0, 0, 0);
   writeOut();
@@ -64,10 +65,10 @@ void handleMidi()
     case midi::MidiType::NoteOn:
       auto note = MIDI.getData1();
       auto velocity = MIDI.getData2();
-      Serial.print("NoteOn: ");
-      Serial.print(note);
-      Serial.print(" - ");
-      Serial.println(velocity);
+      LOG_PRINT("NoteOn: ");
+      LOG_PRINT(note);
+      LOG_PRINT(" - ");
+      LOG_PRINTLN(velocity);
 
       lastNoteAt = millis();
       {
@@ -82,16 +83,18 @@ void handleMidi()
 
 void setup()
 {
-  MIDI.begin(10);
-  Serial.begin(115200); // Debug
+  Serial.begin(115200);
   delay(1000);
-  Serial.println("Ready!");
-
+  LOG_PRINTLN("Ready, starting MIDI");
+  delay(1000);
+  MIDI.begin(10);
+  LOG_PRINTLN("MIDI started");
+  leds.begin();
   introSetv2();
-  Serial.println("setupTriggers");
+  LOG_PRINTLN("setupTriggers");
   setupTriggers();
 
-  Serial.println("setup tasks");
+  LOG_PRINTLN("setup tasks");
   xTaskCreatePinnedToCore(
       renderLoop,   /* Function to implement the task */
       "RenderTask", /* Name of the task */
@@ -104,8 +107,8 @@ void setup()
 
 void loop()
 {
-  Serial.print("midiLoop running on core ");
-  Serial.println(xPortGetCoreID());
+  LOG_PRINT("midiLoop running on core ");
+  LOG_PRINTLN(xPortGetCoreID());
 
   while (true)
   {

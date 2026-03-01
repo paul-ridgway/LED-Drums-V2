@@ -1,6 +1,7 @@
 #pragma once
 
 #include "definitions.h"
+#include "log.h"
 #include "leds.h"
 #include <Array.h>
 #include "Trigger.h"
@@ -27,31 +28,31 @@ Array<ActiveTrigger*, 60> activeTriggers;
 void handleNote(const byte note, const float force) {
   Array<Trigger*, 60>* trigs = triggers[note];
   if (trigs) {
-    Serial.print("handleNote, note: ");
-    Serial.print(note);
-    Serial.print(", force: ");
-    Serial.println(force);
-    Serial.println(trigs->size());
-    
+    LOG_PRINT("handleNote, note: ");
+    LOG_PRINT(note);
+    LOG_PRINT(", force: ");
+    LOG_PRINTLN(force);
+    LOG_PRINTLN(trigs->size());
+
     for (Array<Trigger*, 60>::iterator it = trigs->begin(); it != trigs->end(); ++it) {
-      Serial.println("new AT");
+      LOG_PRINTLN("creating new ActiveTrigger");
       activeTriggers.push_back(new ActiveTrigger(*it, force, millis()));
     }
   } else {
-    Serial.print("Missing trigger for: ");
-    Serial.println(note);
+    LOG_PRINT("Missing trigger for: ");
+    LOG_PRINTLN(note);
   }
 }
 
 void addTrigger(const byte note, const Array<uint16_t, LEDS> *leds, const float r, const float g, const float b, const uint16_t d) {
-  Serial.print("Add trigger: ");
-  Serial.println(note);
-  
+  LOG_PRINT("Add trigger: ");
+  LOG_PRINTLN(note);
+
   if (!triggers[note]) {
     triggers[note] = new Array<Trigger*, 60>();
   }
   triggers[note]->push_back(new Trigger(leds, r, g, b, d));
-  Serial.println(triggers[note]->size());
+  LOG_PRINTLN(triggers[note]->size());
 }
 
 const int clamp(const int value, const int min, const int max) {
